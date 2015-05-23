@@ -6,6 +6,9 @@ here = os.path.dirname(os.path.realpath(__file__))
 src_dir = os.path.realpath(os.path.join(here, '..', '..'))
 config_file = os.path.join(src_dir, 'config.ini')
 
+if not os.path.isfile(config_file):
+    raise ValueError('Cannot find configuration under %s' % (config_file))
+
 config = configparser.ConfigParser(defaults={'here': src_dir})
 config.read(config_file)
 
@@ -37,3 +40,6 @@ for e in pkg_resources.iter_entry_points('ckan.celery_task'):
     f = e.load()
     CELERY_IMPORTS.extend(f())
 
+# Instruct ckan.lib.celery_app where to find configuration
+
+os.environ['CKAN_CONFIG'] = config_file
