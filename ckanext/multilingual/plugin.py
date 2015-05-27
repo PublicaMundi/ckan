@@ -6,6 +6,8 @@ import pylons
 import ckan.logic.action.get as action_get
 from pylons import config
 
+import ckan.plugins.toolkit as toolkit
+
 LANGS = ['en', 'fr', 'de', 'es', 'it', 'nl', 'ro', 'pt', 'pl']
 
 def translate_data_dict(data_dict):
@@ -35,7 +37,7 @@ def translate_data_dict(data_dict):
                 terms.add(item)
 
     # Get the translations of all the terms (as a list of dictionaries).
-    translations = ckan.logic.action.get.term_translation_show(
+    translations = toolkit.get_action('term_translation_show')(
             {'model': ckan.model},
             {'terms': terms,
                 'lang_codes': (desired_lang_code, fallback_lang_code)})
@@ -110,7 +112,7 @@ class MultilingualDataset(SingletonPlugin):
         ## translate title
         title = search_data.get('title')
         search_data['title_' + default_lang] = title 
-        title_translations = action_get.term_translation_show(
+        title_translations = toolkit.get_action('term_translation_show')(
                           {'model': ckan.model},
                           {'terms': [title],
                               'lang_codes': LANGS})
@@ -130,7 +132,7 @@ class MultilingualDataset(SingletonPlugin):
                 if isinstance(item, basestring):
                     all_terms.append(item)
 
-        field_translations = action_get.term_translation_show(
+        field_translations = toolkit.get_action('term_translation_show')(
                           {'model': ckan.model},
                           {'terms': all_terms,
                               'lang_codes': LANGS})
@@ -185,7 +187,7 @@ class MultilingualDataset(SingletonPlugin):
         for facet in facets.values():
             for item in facet['items']:
                 terms.add(item['display_name'])
-        translations = ckan.logic.action.get.term_translation_show(
+        translations = toolkit.get_action('term_translation_show')(
                 {'model': ckan.model},
                 {'terms': terms,
                     'lang_codes': (desired_lang_code, fallback_lang_code)})
@@ -220,7 +222,7 @@ class MultilingualDataset(SingletonPlugin):
         desired_lang_code = pylons.request.environ['CKAN_LANG']
         fallback_lang_code = pylons.config.get('ckan.locale_default', 'en')
         terms = [value for param, value in c.fields]
-        translations = ckan.logic.action.get.term_translation_show(
+        translations = toolkit.get_action('term_translation_show')(
                 {'model': ckan.model},
                 {'terms': terms,
                  'lang_codes': (desired_lang_code, fallback_lang_code)})
