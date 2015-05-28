@@ -8,7 +8,7 @@ from pylons import config
 
 import ckan.plugins.toolkit as toolkit
 
-LANGS = ['en', 'fr', 'de', 'es', 'it', 'nl', 'ro', 'pt', 'pl']
+LANGS = ['en', 'fr', 'de', 'es', 'it', 'nl', 'ro', 'pt', 'pl', 'el']
 
 def translate_data_dict(data_dict):
     '''Return the given dict (e.g. a dataset dict) with as many of its fields
