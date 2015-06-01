@@ -40,7 +40,8 @@ def translate_data_dict(data_dict):
     translations = toolkit.get_action('term_translation_show')(
             {'model': ckan.model},
             {'terms': terms,
-                'lang_codes': (desired_lang_code, fallback_lang_code)})
+                'lang_codes': (desired_lang_code)})
+                #'lang_codes': (desired_lang_code, fallback_lang_code)})
 
     # Transform the translations into a more convenient structure.
     desired_translations = {}
@@ -190,7 +191,8 @@ class MultilingualDataset(SingletonPlugin):
         translations = toolkit.get_action('term_translation_show')(
                 {'model': ckan.model},
                 {'terms': terms,
-                    'lang_codes': (desired_lang_code, fallback_lang_code)})
+                    #'lang_codes': (desired_lang_code, fallback_lang_code)})
+                    'lang_codes': (desired_lang_code)})
 
         # Replace facet display names with translated ones.
         for facet in facets.values():
@@ -225,7 +227,8 @@ class MultilingualDataset(SingletonPlugin):
         translations = toolkit.get_action('term_translation_show')(
                 {'model': ckan.model},
                 {'terms': terms,
-                 'lang_codes': (desired_lang_code, fallback_lang_code)})
+                 #'lang_codes': (desired_lang_code, fallback_lang_code)})
+                 'lang_codes': (desired_lang_code)})
         c.translated_fields = {}
         for param, value in c.fields:
             matching_translations = [translation for translation in
@@ -259,6 +262,7 @@ class MultilingualGroup(SingletonPlugin):
 
     def before_view(self, data_dict):
         translated_data_dict = translate_data_dict(data_dict)
+        print translated_data_dict
         return translated_data_dict
 
 class MultilingualTag(SingletonPlugin):
