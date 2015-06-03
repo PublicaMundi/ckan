@@ -1149,7 +1149,7 @@ def user_show(context, data_dict):
     user_dict['datasets'] = []
     dataset_q = model.Session.query(model.Package).join(model.PackageRole
             ).filter_by(user=user_obj, role=model.Role.ADMIN
-            ).limit(50)
+            )
 
     for dataset in dataset_q:
         try:

@@ -27,7 +27,7 @@ def package_search(context, data_dict):
 
 def package_list(context, data_dict):
     # List of all active packages are visible by default
-    return {'success': True}
+    return {'success': False}
 
 def current_package_list_with_resources(context, data_dict):
     return package_list(context, data_dict)
@@ -72,7 +72,9 @@ def tag_list(context, data_dict):
 
 def user_list(context, data_dict):
     # Users list is visible by default
-    return {'success': True}
+    #return {'success': True}
+    return {'success' : False,
+            'msg': 'Only internal services allowed to use this action'}
 
 def package_relationships_list(context, data_dict):
     user = context.get('user')

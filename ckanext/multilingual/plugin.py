@@ -262,7 +262,6 @@ class MultilingualGroup(SingletonPlugin):
 
     def before_view(self, data_dict):
         translated_data_dict = translate_data_dict(data_dict)
-        print translated_data_dict
         return translated_data_dict
 
 class MultilingualTag(SingletonPlugin):
