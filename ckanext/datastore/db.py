@@ -604,7 +604,16 @@ def upsert_data(context, data_dict):
         context['connection'].execute(sql_string, rows)
 
     elif method in [_UPDATE, _UPSERT]:
-        unique_keys = _get_unique_key(context, data_dict)
+        extras = data_dict.get('__extras')
+        # If allow_update_with_id option set
+        if extras and extras.get('allow_update_with_id'):
+            # Set _id as only unique key
+            unique_keys = [u'_id']
+            # And update field names
+            field_names.append(u'_id')
+        else:
+            unique_keys = _get_unique_key(context, data_dict)
+
         if len(unique_keys) < 1:
             raise ValidationError({
                 'table': [u'table does not have a unique key defined']
@@ -876,13 +885,30 @@ def delete_data(context, data_dict):
     field_ids = set([field['id'] for field in fields])
     where_clause, where_values = _where(field_ids, data_dict)
 
-    context['connection'].execute(
-        u'DELETE FROM "{0}" {1}'.format(
-            data_dict['resource_id'],
-            where_clause
-        ),
-        where_values
-    )
+    extras = data_dict.get('__extras')
+    # If allow_update_with_id option set
+    if extras and extras.get('allow_update_with_id'):
+        # Add _id in field ids
+        field_ids.add(u'_id')
+
+    # modify to allow drop column
+    filters = data_dict.get('filters')
+    for k,v in filters.iteritems():
+        if v == '*':
+            context['connection'].execute(
+                u'ALTER TABLE "{0}" DROP COLUMN {1}'.format(
+                    data_dict['resource_id'],
+                    k
+                                    ),
+            )
+        else:
+            context['connection'].execute(
+                u'DELETE FROM "{0}" {1}'.format(
+                    data_dict['resource_id'],
+                    where_clause
+                ),
+                where_values
+            )
 
 
 def search_data(context, data_dict):
