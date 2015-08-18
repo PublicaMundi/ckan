@@ -29,7 +29,8 @@ def set_rating(user_or_ip, package, rating):
         rating_query = model.Session.query(model.Rating).filter_by(package=package, user=user)
     else:
         ip = user_or_ip
-        rating_query = model.Session.query(model.Rating).filter_by(package=package, user_ip_address=ip)
+        #rating_query = model.Session.query(model.Rating).filter_by(package=package, user_ip_address=ip)
+        rating_query = model.Session.query(model.Rating).filter_by(package=package)
 
     try:
         rating = float(rating)
@@ -38,18 +39,24 @@ def set_rating(user_or_ip, package, rating):
     if rating > MAX_RATING or rating < MIN_RATING:
         raise RatingValueException
     
-    if rating_query.count():
-        rating_obj = rating_query.first()
-        rating_obj.rating = rating
-    elif user:
-        rating = model.Rating(package=package,
-                              user=user,
+    # Override user check when setting rating
+    rating = model.Rating(package=package,
+                              user=None,
                               rating=rating)
-        model.Session.add(rating)
-    else:
-        rating = model.Rating(package=package,
-                              user_ip_address=ip,
-                              rating=rating)
-        model.Session.add(rating)
+    model.Session.add(rating)
+
+    #if rating_query.count():
+        #rating_obj = rating_query.first()
+        #rating_obj.rating = rating
+    #elif user:
+    #    rating = model.Rating(package=package,
+    #                          user=user,
+    #                          rating=rating)
+    #    model.Session.add(rating)
+    #else:
+    #    rating = model.Rating(package=package,
+    #                          user_ip_address=ip,
+    #                          rating=rating)
+    #    model.Session.add(rating)
     model.repo.commit_and_remove()
     
