@@ -26,7 +26,7 @@ fanstatic==0.12
 nose==1.3.0
 ofs==0.4.1
 psycopg2==2.4.5
-python-dateutil==1.5
+python-dateutil>=1.5.0,<2.0.0
 python-openid==2.2.5
 pyutilib.component.core==4.5.3
 repoze.lru==0.6

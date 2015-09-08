@@ -73,7 +73,12 @@ class UserController(base.BaseController):
         c.user_dict = user_dict
         c.is_myself = user_dict['name'] == c.user
         c.about_formatted = h.render_markdown(user_dict['about'])
-
+        c.page = h.Page(
+                collection=user_dict['datasets'],
+                page=request.params.get('page',1),
+                url=h.pager_url,
+                items_per_page=21
+                )
     ## end hooks
 
     def _get_repoze_handler(self, handler_name):
