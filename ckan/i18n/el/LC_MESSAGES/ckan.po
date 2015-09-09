@@ -1314,7 +1314,7 @@ msgstr "Χρήστης"
 #: ckanext/stats/templates_legacy/ckanext/stats/index.html:65
 #: ckanext/stats/templates_legacy/ckanext/stats/index.html:74
 msgid "Dataset"
-msgstr "Σύνολο Δεδομένων"
+msgstr "Δεδομένα"
 
 #: ckan/logic/converters.py:172 ckan/logic/validators.py:192
 #: ckanext/stats/templates/ckanext/stats/index.html:113
@@ -2580,7 +2580,7 @@ msgstr "Δεν υπάρχει περιγραφή για αυτήν την ομά
 #: ckan/templates/user/activity_stream.html:6
 #: ckan/templates/user/read_base.html:20
 msgid "Activity Stream"
-msgstr "Ροή Δραστηριότητας"
+msgstr "Δραστηριότητα"
 
 #: ckan/templates/group/admins.html:3 ckan/templates/group/admins.html:6
 #: ckan/templates/organization/admins.html:3
