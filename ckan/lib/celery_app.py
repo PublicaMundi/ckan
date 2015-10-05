@@ -36,6 +36,8 @@ default_config = dict(
     CELERY_RESULT_SERIALIZER='json',
     CELERY_TASK_SERIALIZER='json',
     CELERY_IMPORTS=[],
+    CELERYD_TASK_SOFT_TIME_LIMIT=3600,
+    CELERYD_TASK_TIME_LIMIT=3780
 )
 
 for entry_point in iter_entry_points(group='ckan.celery_task'):

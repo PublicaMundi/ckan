@@ -32,6 +32,8 @@ else:
     CELERY_TASK_SERIALIZER = 'json'
     CELERY_RESULT_SERIALIZER = 'json'
     CELERY_ACCEPT_CONTENT = ['json']
+    CELERYD_TASK_SOFT_TIME_LIMIT = 3600
+    CELERYD_TASK_TIME_LIMIT = CELERYD_TASK_SOFT_TIME_LIMIT + 180
 
 # Collect all registered tasks from entry points
 
