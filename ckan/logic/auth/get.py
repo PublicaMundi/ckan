@@ -27,7 +27,7 @@ def package_search(context, data_dict):
 
 def package_list(context, data_dict):
     # List of all active packages are visible by default
-    return {'success': False}
+    return {'success': True}
 
 def current_package_list_with_resources(context, data_dict):
     return package_list(context, data_dict)
