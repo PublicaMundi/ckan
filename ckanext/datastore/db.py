@@ -554,7 +554,7 @@ def alter_table(context, data_dict):
                 })
 
     for field in new_fields:
-        sql = 'ALTER TABLE "{0}" ADD "{1}" {2}'.format(
+        sql = u'ALTER TABLE "{0}" ADD "{1}" {2}'.format(
             data_dict['resource_id'],
             field['id'],
             field['type'])
