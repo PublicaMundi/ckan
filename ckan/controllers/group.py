@@ -802,6 +802,11 @@ class GroupController(base.BaseController):
                   _('Unauthorized to read group {group_id}').format(
                       group_id=id))
 
+        try:
+            offset = int(offset)
+        except:
+            offset = 0
+        
         # Add the group's activity stream (already rendered to HTML) to the
         # template context for the group/read.html template to retrieve later.
         c.group_activity_stream = self._action('group_activity_list_html')(
