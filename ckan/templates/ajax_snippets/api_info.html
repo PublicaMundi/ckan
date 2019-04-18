@@ -1,7 +1,6 @@
 {#
 Displays information about accessing a resource via the API.
 
-datastore_root_url - The root API url.
 resource_id - The resource id
 embedded - If true will not include the "modal" classes on the snippet.
 
@@ -11,7 +10,7 @@ Example
 
 #}
 
-{% if not (datastore_root_url is defined) %}{% set datastore_root_url = '/api/action' %}{% endif %}
+{% set datastore_root_url = '/api/action' %}
 
 {% set sql_example_url = datastore_root_url + '/datastore_search_sql?sql=SELECT * from "' + resource_id + '" WHERE title LIKE \'jones\'' %}
 
